@@ -1,14 +1,19 @@
 #include<stdio.h>
 #include<string.h>
+#include<math.h>
 int count;
+int roll;
 void administrator();
 void student();
+int roll_number();
 typedef struct student
 {
-    int cnic;
+    char cnic[15];
     char name[100];
     int age;
     char gender;
+    int rollno;
+
 } std;
 
 int main()
@@ -53,12 +58,14 @@ do
         printf("Enter your name: \n");
         scanf("%s",a[count].name);
         printf("Enter your cnic: \n");
-        scanf("%d",&a[count].cnic);
+        scanf("%s",&a[count].cnic);
         printf("Enter your age: \n");
         scanf("%d",&a[count].age);
         printf("Enter your gender: (M,F) \n");
         scanf(" %c",&a[count].gender);
-
+        a[count].rollno=0;
+        roll_number(a,0);
+        printf("Your roll number is %d\n",a[count].rollno);
         count++;
         break;
     case 2:
@@ -76,4 +83,18 @@ do
     }
 } while (FLAG==0);
 
+}
+int roll_number(std *a,int i){
+
+    if(a[count].cnic[i]=='\0'){
+        roll=0;
+        return 0;
+    }
+    roll_number(a,i+1);
+    if (roll<5)
+    {
+            
+    a[count].rollno += ((int)(a[count].cnic[roll]-'0')* pow(10,roll));
+    roll++;
+    }
 }

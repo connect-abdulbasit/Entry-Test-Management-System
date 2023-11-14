@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-int count;
+#include<stdlib.h>
+
+int count = 0;
 int roll;
 void administrator();
 void student();
@@ -13,14 +15,22 @@ typedef struct student
     int age;
     char gender;
     int rollno;
+    float ecat;
+    float sat;
+    float military;
 
 } std;
 
 int main()
 {
     int flag = 0;
-    std a[100];
+    std *ptr;
 
+    ptr = (std *)calloc(count, sizeof(std));
+    if (ptr==NULL)
+    {
+        print("Insufficient memory\n");
+    }else{
     do
     {
 
@@ -34,14 +44,14 @@ int main()
 
             break;
         case 2:
-            student(a);
+            student(ptr);
             break;
         case 0:
             flag = 1;
             break;
         }
     } while (flag == 0);
-    printf("%d", a[0].age);
+    }
     return 0;
 }
 void student(std *a)
@@ -49,12 +59,19 @@ void student(std *a)
     int FLAG = 0, option, error = 0, exit = 3;
     do
     {
-        printf("1: Regisration\n2:Take test\n3:Result\n0: Exit\n");
+        printf("1:Regisration\n2:Take test\n3:Result\n0: Exit\n");
         scanf("%d", &option);
 
         switch (option)
         {
         case 1:
+        count++;
+        a=realloc(a,count);
+        if (a+count==NULL)
+        {
+            printf("Insufficient memory\n");
+        }else{
+        
             printf("Enter your name: \n");
             scanf("%s", a[count].name);
             do
@@ -91,16 +108,16 @@ void student(std *a)
             scanf("%d", &a[count].age);
             printf("Enter your gender: (M,F) \n");
             scanf(" %c", &a[count].gender);
-            a[count].rollno = 0;
             roll_number(a, 0);
             printf("Your roll number is %d\n", a[count].rollno);
-            count++;
+        }  
             break;
         case 2:
 
             break;
 
         case 3:
+
             break;
         case 0:
             FLAG = 1;

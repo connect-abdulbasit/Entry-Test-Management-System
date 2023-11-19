@@ -1,29 +1,29 @@
 IQ TEST
-1: YEAR IS TO MONTH AS WEEK IS TO …..?
+1: YEAR IS TO MONTH AS WEEK IS TO ?
 A: Hour
 B: Day
 C: Fortnight
 D: Minute
 
-2: BLINDNESS IS TO EYE AS DEAFNESS IS TO …..?
+2: BLINDNESS IS TO EYE AS DEAFNESS IS TO ?
 A: Ear
 B: Brain
 C: Head
 D: Nose
 
-3: FOOD IS TO EAT AS WATER IS TO …..?
+3: FOOD IS TO EAT AS WATER IS TO ?
 A: Dirt
 B: Drink
 C: Wash
 D: Fire
 
-4: CARPENTER IS TO WOOD AS TAILOR IS TO …..?
+4: CARPENTER IS TO WOOD AS TAILOR IS TO ?
 A: Machine
 B: Ship
 C: Cloth
 D: Shop
 
-5: LIMB IS TO BODY AS BRANCH IS TO …..?
+5: LIMB IS TO BODY AS BRANCH IS TO ?
 A: Building
 B: Grass
 C: Garden

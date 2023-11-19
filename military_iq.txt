@@ -1,4 +1,3 @@
-IQ TEST
 1: YEAR IS TO MONTH AS WEEK IS TO ?
 A: Hour
 B: Day

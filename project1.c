@@ -9,7 +9,7 @@ void administrator();
 void student();
 int roll_number();
 int sat();
-void military();
+int military();
 typedef struct student
 {
     char cnic[15];
@@ -257,7 +257,7 @@ int sat(float *result)
     printf("You score %f\n\n", *result);
     return 1;
 }
-void military(float *result)
+int military(float *result)
 {
     FILE *military1_file;
     FILE *military1_key;
@@ -266,6 +266,7 @@ void military(float *result)
     if (military1_file == NULL)
     {
         printf("Error\n");
+        return 0;
     }   
         printf("\t\tMILITARY TEST\n");
         char ques1[100];
@@ -305,6 +306,7 @@ void military(float *result)
             if (military_file == NULL)
             {
                 printf("Error\n");
+                return 0;
             }
                 printf("\t\tMILITARY TEST (Round #2)\n");
                 char ques[100];
@@ -317,7 +319,7 @@ void military(float *result)
                     printf("%s\n", ques);
                     fscanf(military_file, "%[^\n]\n", ques);
                     printf("%s\n", ques);
-                    fscanf(military_file, "%[^\n]\n", ques1);
+                    fscanf(military_file, "%[^\n]\n", ques);
                     printf("%s\n", ques);
                     fscanf(military_file, "%[^\n]\n", ques);
                     printf("%s\n", ques);
@@ -346,6 +348,8 @@ void military(float *result)
             {
                 printf("You have not cleared IQ test. Better luck next time :( \n");
             }
+            fclose(military1_key);
+            fclose(military1_file);
             
         }
     

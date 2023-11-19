@@ -1,44 +1,29 @@
-                         MILITARY Exam
-Q) Choose the best option from the following question.
-
-1) 
-Identify the adverb in the sentence: "She quickly finished her homework."
+1)Identify the adverb in the sentence: "She quickly finished her homework."
 A) She
 B) Finished
 C) Her
 D) Quickly
 
-2)
-What is the value of the square root of 144?
+2)What is the value of the square root of 144?
 A) 12
 B) 10
 C) 16
 D) 8
 
-3)
-If 3x - 7 = 14, what is the value of x?
+3)If 3x - 7 = 14, what is the value of x?
 A) 7
 B) 5
 C) 7/3
 D) 21
 
-4)
-Complete the series: 3, 6, 12, 24, ?
+4)Complete the series: 3, 6, 12, 24, ?
 A) 48
 B) 36
 C) 60
 D) 30
 
-5)
-If 5 apples weigh 500 grams, how much do 20 apples weigh?
+5)If 5 apples weigh 500 grams, how much do 20 apples weigh?
 A) 200 grams
 B) 500 grams
 C) 2000 grams
 D) 2500 grams
-
-
-Answer Key: 1) D 
-            2) A
-            3) A
-            4) A
-            5) C

@@ -8,6 +8,7 @@ int roll;
 void administrator();
 void student();
 int roll_number();
+int sat();
 typedef struct student
 {
     char cnic[15];
@@ -29,7 +30,7 @@ int main()
     ptr = (std *)calloc(count, sizeof(std));
     if (ptr == NULL)
     {
-        print("Insufficient memory\n");
+        printf("Insufficient memory\n");
     }
     else
     {
@@ -54,6 +55,8 @@ int main()
             }
         } while (flag == 0);
     }
+
+    free(ptr);
     return 0;
 }
 void student(std *a)
@@ -117,12 +120,16 @@ void student(std *a)
             }
             break;
         case 2:
+
             printf("1: SAT\n2: ECAT\n3: Military\n");
             scanf("%d", &choice);
+            float result;
 
             switch (choice)
             {
             case 1:
+
+                sat(&result);
 
                 break;
             case 2:
@@ -205,4 +212,45 @@ int roll_number(std *a, int i)
             }
         }
     } while (error == 1);
+}
+int sat(float *result)
+{
+    FILE *sat_file;
+    FILE *sat_key;
+    sat_file = fopen("SAT.txt", "r");
+    sat_key = fopen("sat_key.txt", "r");
+    if (sat_file == NULL)
+    {
+        printf("Error\n");
+        return 0;
+    }
+
+    printf("\t\tSAT TEST\n");
+    char question[100];
+    char user_answer, correct_answer;
+    int num_of_question = 0;
+    int right_answer = 0;
+    do
+    {
+        fscanf(sat_file, "%[^\n]\n", question);
+        printf("%s\n", question);
+        fscanf(sat_file, "%[^\n]\n", question);
+        printf("%s\n", question);
+        fscanf(sat_file, "%[^\n]\n", question);
+        printf("%s\n", question);
+        fscanf(sat_file, "%[^\n]\n", question);
+        printf("%s\n", question);
+        fscanf(sat_file, "%[^\n]\n", question);
+        printf("%s\n", question);
+        fscanf(sat_key, "%c", &correct_answer);
+        scanf(" %c", &user_answer);
+        if (user_answer == correct_answer)
+        {
+            right_answer++;
+        }
+        num_of_question++;
+    } while (num_of_question != 5);
+    *result = right_answer * 100.00 / num_of_question;
+    printf("You score %f\n\n", *result);
+    return 1;
 }

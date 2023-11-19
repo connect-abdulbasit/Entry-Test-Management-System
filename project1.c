@@ -10,6 +10,7 @@ void student();
 int roll_number();
 int sat();
 int military();
+int registration_checker();
 typedef struct student
 {
     char cnic[15];
@@ -125,12 +126,22 @@ void student(std *a)
             printf("1: SAT\n2: ECAT\n3: Military\n");
             scanf("%d", &choice);
             float result;
-
+            int id, checker;
             switch (choice)
             {
             case 1:
 
-                sat(&result);
+                printf("Enter your roll number:\n");
+                scanf("%d", &id);
+                checker = registration_checker(id, a);
+                if (checker == 0)
+                {
+                    printf("You have not registered yet\nPlz register first\n\n");
+                }
+                else
+                {
+                    sat(&result);
+                }
 
                 break;
             case 2:
@@ -252,7 +263,7 @@ int sat(float *result)
             right_answer++;
         }
         num_of_question++;
-    } while (num_of_question != 5);
+    } while (fgetc(sat_file) != EOF);
     *result = right_answer * 100.00 / num_of_question;
     printf("You score %f\n\n", *result);
     return 1;
@@ -267,89 +278,97 @@ int military(float *result)
     {
         printf("Error\n");
         return 0;
-    }   
-        printf("\t\tMILITARY TEST\n");
-        char ques1[100];
-        char user_answer1, correct_answer1;
-        int num_of_question1 = 0;
-        int right_answer1 = 0;
+    }
+    printf("\t\tMILITARY TEST\n");
+    char ques1[100];
+    char user_answer1, correct_answer1;
+    int num_of_question1 = 0;
+    int right_answer1 = 0;
+    do
+    {
+        fscanf(military1_file, "%[^\n]\n", ques1);
+        printf("%s\n", ques1);
+        fscanf(military1_file, "%[^\n]\n", ques1);
+        printf("%s\n", ques1);
+        fscanf(military1_file, "%[^\n]\n", ques1);
+        printf("%s\n", ques1);
+        fscanf(military1_file, "%[^\n]\n", ques1);
+        printf("%s\n", ques1);
+        fscanf(military1_file, "%[^\n]\n", ques1);
+        printf("%s\n", ques1);
+        fscanf(military1_key, "%c", &correct_answer1);
+        scanf(" %c", &user_answer1);
+        if (user_answer1 == correct_answer1)
+        {
+            right_answer1++;
+        }
+        num_of_question1++;
+    } while (num_of_question1 != 5);
+    *result = right_answer1 * 100.00 / num_of_question1;
+    printf("You score %f\n\n", *result);
+    if (*result >= 50.0)
+    {
+        printf("Congratulations! You have sucessfully cleared IQ test.\n\n");
+        float result2;
+        FILE *military_file;
+        FILE *military_key;
+        military_file = fopen("Military.txt", "r");
+        military_key = fopen("militarykey.txt", "r");
+        if (military_file == NULL)
+        {
+            printf("Error\n");
+            return 0;
+        }
+        printf("\t\tMILITARY TEST (Round #2)\n");
+        char ques[100];
+        char user_answer2, correct_answer2;
+        int num_of_question2 = 0;
+        int right_answer2 = 0;
         do
         {
-            fscanf(military1_file, "%[^\n]\n", ques1);
-            printf("%s\n", ques1);
-            fscanf(military1_file, "%[^\n]\n", ques1);
-            printf("%s\n", ques1);
-            fscanf(military1_file, "%[^\n]\n", ques1);
-            printf("%s\n", ques1);
-            fscanf(military1_file, "%[^\n]\n", ques1);
-            printf("%s\n", ques1);
-            fscanf(military1_file, "%[^\n]\n", ques1);
-            printf("%s\n", ques1);
-            fscanf(military1_key, "%c", &correct_answer1);
-            scanf(" %c", &user_answer1);
-            if (user_answer1 == correct_answer1)
+            fscanf(military_file, "%[^\n]\n", ques);
+            printf("%s\n", ques);
+            fscanf(military_file, "%[^\n]\n", ques);
+            printf("%s\n", ques);
+            fscanf(military_file, "%[^\n]\n", ques);
+            printf("%s\n", ques);
+            fscanf(military_file, "%[^\n]\n", ques);
+            printf("%s\n", ques);
+            fscanf(military_file, "%[^\n]\n", ques);
+            printf("%s\n", ques);
+            fscanf(military_key, "%c", &correct_answer2);
+            scanf(" %c", &user_answer2);
+            if (user_answer2 == correct_answer2)
             {
-                right_answer1++;
+                right_answer2++;
             }
-            num_of_question1++;
-        } while (num_of_question1 != 5);
-        *result = right_answer1 * 100.00 / num_of_question1;
-        printf("You score %f\n\n", *result);
-        if (*result >= 50.0)
+            num_of_question2++;
+        } while (num_of_question2 != 5);
+        result2 = right_answer2 * 100.00 / num_of_question2;
+        printf("You score %f\n\n", result2);
+        if (result2 >= 50.0)
         {
-            printf("Congratulations! You have sucessfully cleared IQ test.\n\n");
-            float result2;
-            FILE *military_file;
-            FILE *military_key;
-            military_file = fopen("Military.txt", "r");
-            military_key = fopen("militarykey.txt", "r");
-            if (military_file == NULL)
-            {
-                printf("Error\n");
-                return 0;
-            }
-                printf("\t\tMILITARY TEST (Round #2)\n");
-                char ques[100];
-                char user_answer2, correct_answer2;
-                int num_of_question2 = 0;
-                int right_answer2 = 0;
-                do
-                {
-                    fscanf(military_file, "%[^\n]\n", ques);
-                    printf("%s\n", ques);
-                    fscanf(military_file, "%[^\n]\n", ques);
-                    printf("%s\n", ques);
-                    fscanf(military_file, "%[^\n]\n", ques);
-                    printf("%s\n", ques);
-                    fscanf(military_file, "%[^\n]\n", ques);
-                    printf("%s\n", ques);
-                    fscanf(military_file, "%[^\n]\n", ques);
-                    printf("%s\n", ques);
-                    fscanf(military_key, "%c", &correct_answer2);
-                    scanf(" %c", &user_answer2);
-                    if (user_answer2 == correct_answer2)
-                    {
-                        right_answer2++;
-                    }
-                    num_of_question2++;
-                } while (num_of_question2 != 5);
-                result2 = right_answer2 * 100.00 / num_of_question2;
-                printf("You score %f\n\n", result2);
-                if (result2>=50.0)
-                {
-                    printf("Congratulations! You have sucessfully cleared Military test.\n");
-                }
-                else
-                {
-                    printf("You have not cleared Military test. Better luck next time :(\n");
-                }
-            }
-            else
-            {
-                printf("You have not cleared IQ test. Better luck next time :( \n");
-            }
-            fclose(military1_key);
-            fclose(military1_file);
-            
+            printf("Congratulations! You have sucessfully cleared Military test.\n");
         }
-    
+        else
+        {
+            printf("You have not cleared Military test. Better luck next time :(\n");
+        }
+    }
+    else
+    {
+        printf("You have not cleared IQ test. Better luck next time :( \n");
+    }
+    fclose(military1_key);
+    fclose(military1_file);
+}
+int registration_checker(int roll_no, std *a)
+{
+    for (int i = 0; i < count; i++)
+    {
+        if (a[i].rollno == roll_no)
+        {
+            return 1;
+        }
+    }
+}

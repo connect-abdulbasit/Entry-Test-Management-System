@@ -10,6 +10,7 @@ void admin();
 void student();
 int roll_number();
 int sat();
+int ecat();
 int military();
 int registration_checker();
 int appendSat();
@@ -196,7 +197,17 @@ void student(std *a)
 
                 break;
             case 2:
-
+                printf("Enter your roll number:\n");
+                scanf("%d", &id);
+                checker = registration_checker(id, a);
+                if (checker == 0)
+                {
+                    printf("You have not registered yet\nPlz register first\n\n");
+                }
+                else
+                {
+                    ecat(&result);
+                }
                 break;
             case 3:
                 printf("Enter your roll number:\n");
@@ -324,6 +335,44 @@ int sat(float *result)
     printf("You score %f\n\n", *result);
     fclose(sat_file);
     fclose(sat_key);
+    return 1;
+}
+int ecat(float *result)
+{
+    FILE *e_qs;
+    FILE *e_key;
+    e_qs = fopen("ECAT.txt", "r");
+    e_key = fopen("ecat_key.txt", "r");
+    if (e_qs == NULL)
+    {
+        printf("Error\n");
+        return 0;
+    }
+
+    printf("\t\tECAT TEST\n");
+    char qs[1000];
+    char uAns, cAns;
+    int nQs = 0;
+    int rAns = 0;
+    do
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            fscanf(e_qs, "%[^\n]\n", qs);
+            printf("%s\n", qs);
+        }
+        fscanf(e_key, "%c", &cAns);
+        scanf(" %c", &uAns);
+        if (uAns == cAns)
+        {
+            rAns++;
+        }
+        nQs++;
+    } while (fgetc(e_qs) != EOF);
+    *result = rAns * 100.00 / nQs;
+    printf("You score %.2f\n\n", *result);
+    fclose(e_qs);
+    fclose(e_key);
     return 1;
 }
 int military(float *result)

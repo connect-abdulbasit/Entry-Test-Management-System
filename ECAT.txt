@@ -1,45 +1,29 @@
-                        "ECAT Exam"
-Q) Choose the best option from the following question.
-
-1)
-Solve for x: 3x + 5 = 20
+1)Solve for x: 3x + 5 = 20
 A) x = 5
 B) x = 15
 C) x = 7
 D) x = 5.33
 
-2)
-What is the value of π (pi) approximately equal to?
+2)What is the value of π (pi) approximately equal to?
 A) 3.14
 B) 2.71
 C) 4.22
 D) 3.92
 
-3)
-Which of the following is a compound sentence?
+3)Which of the following is a compound sentence?
 A) "She sang beautifully."
 B) "The dog barked loudly."
 C) "He ran fast and he won the race."
 D) "The book is on the table."
 
-4)
-What is the past tense of the verb "eat"?
+4)What is the past tense of the verb "eat"?
 A) Ate
 B) Eaten
 C) Eats
 D) Eating
 
-5)
-If you rearrange the letters "CIFAIPC," you would get the name of a(n):
+5)If you rearrange the letters "CIFAIPC," you would get the name of a(n):
 A) Ocean
 B) Country
 C) Animal
 D) Occupation
-                    
-                     Good Luck :)
-
-Answer Key: 1) D 
-            2) A
-            3) A
-            4) A
-            5) C

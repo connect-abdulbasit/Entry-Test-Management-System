@@ -15,7 +15,7 @@ int registration_checker();
 int appendSat();
 int appendEcat();
 int appendMil();
-
+int appendiq();
 typedef struct student
 {
     char cnic[15];
@@ -86,7 +86,20 @@ void admin()
 
             break;
         case 3:
+            printf("\n1:IQ\n2:Theory\n");
+            scanf("%d", &option);
+            switch (option)
+            {
+            case 1:
             appendMil();
+                break;
+            case 2:
+            appendiq();
+                break;
+
+            default:
+                break;
+            }
 
             break;
         default:
@@ -410,109 +423,101 @@ int registration_checker(int roll_no, std *a)
         }
     }
 }
-int appendSat(){
-    FILE *ptr=fopen("SAT.txt","a");
-    FILE *ptr1=fopen("sat_key.txt","a");
-    if (ptr==NULL||ptr1==NULL)
+int appendSat()
+{
+    FILE *ptr = fopen("SAT.txt", "a");
+    FILE *ptr1 = fopen("sat_key.txt", "a");
+    if (ptr == NULL || ptr1 == NULL)
     {
         printf("Error\n");
         return 0;
     }
-    
-    char input[1000],key;
-    printf("Enter a question:\n");
-    for (int i = 0; i < 6; i++)
-    {
-    fgets(input,1000,stdin);
-    fprintf(ptr,"%s",input);
-        
-    }
-    printf("Enter answer key\n");
-    scanf(" %c",&key);
-    fprintf(ptr1,"%c",key);
-    
-    fclose(ptr);
-    fclose(ptr1);
 
-}
-int appendSat(){
-    FILE *ptr=fopen("ECAT.txt","a");
-    FILE *ptr1=fopen("ecat_key.txt","a");
-    if (ptr==NULL||ptr1==NULL)
-    {
-        printf("Error\n");
-        return 0;
-    }
-    
-    char input[1000],key;
+    char input[1000], key;
     printf("Enter a question:\n");
     for (int i = 0; i < 6; i++)
     {
-    fgets(input,1000,stdin);
-    fprintf(ptr,"%s",input);
-        
+        fgets(input, 1000, stdin);
+        fprintf(ptr, "%s", input);
     }
     printf("Enter answer key\n");
-    scanf(" %c",&key);
-    fprintf(ptr1,"%c",key);
-    
-    fclose(ptr);
-    fclose(ptr1);
+    scanf(" %c", &key);
+    fprintf(ptr1, "%c", key);
 
+    fclose(ptr);
+    fclose(ptr1);
 }
-int appendMil(){
-int option;
-printf("\n1:IQ\n2:Theory\n");
-scanf("%d",&option);
-switch(option){
-    case 1:
+int appendEcat()
+{
+    FILE *ptr = fopen("ECAT.txt", "a");
+    FILE *ptr1 = fopen("ecat_key.txt", "a");
+    if (ptr == NULL || ptr1 == NULL)
+    {
+        printf("Error\n");
+        return 0;
+    }
 
-    FILE *ptr=fopen("Military.txt","a");
-    FILE *ptr1=fopen("military_key.txt","a");
-    if (ptr==NULL||ptr1==NULL)
-    {
-        printf("Error\n");
-        return 0;
-    }
-    
-    char input[1000],key;
+    char input[1000], key;
     printf("Enter a question:\n");
     for (int i = 0; i < 6; i++)
     {
-    fgets(input,1000,stdin);
-    fprintf(ptr,"%s",input);
-        
+        fgets(input, 1000, stdin);
+        fprintf(ptr, "%s", input);
     }
     printf("Enter answer key\n");
-    scanf(" %c",&key);
-    fprintf(ptr1,"%c",key);
-    
+    scanf(" %c", &key);
+    fprintf(ptr1, "%c", key);
+
     fclose(ptr);
     fclose(ptr1);
-break;
-case 2:
-FILE *ptr=fopen("military_iq.txt","a");
-    FILE *ptr1=fopen("military_key1.txt","a");
-    if (ptr==NULL||ptr1==NULL)
-    {
-        printf("Error\n");
-        return 0;
-    }
-    
-    char input[1000],key;
-    printf("Enter a question:\n");
-    for (int i = 0; i < 6; i++)
-    {
-    fgets(input,1000,stdin);
-    fprintf(ptr,"%s",input);
-        
-    }
-    printf("Enter answer key\n");
-    scanf(" %c",&key);
-    fprintf(ptr1,"%c",key);
-    
-    fclose(ptr);
-    fclose(ptr1);
-break;
 }
+int appendMil()
+{
+    char key;
+        FILE *ptr = fopen("Military.txt", "a");
+        FILE *ptr1 = fopen("military_key.txt", "a");
+        if (ptr == NULL || ptr1 == NULL)
+        {
+            printf("Error\n");
+            return 0;
+        }
+
+        char input[1000];
+        printf("Enter a question:\n");
+        for (int i = 0; i < 6; i++)
+        {
+            fgets(input, 1000, stdin);
+            fprintf(ptr, "%s", input);
+        }
+        printf("Enter answer key\n");
+        scanf(" %c", &key);
+        fprintf(ptr1, "%c", key);
+
+        fclose(ptr);
+        fclose(ptr1);
+}
+int appendiq(){
+    char key;
+        FILE *ptr = fopen("military_iq.txt", "a");
+        FILE *ptr1 = fopen("military_key1.txt", "a");
+        if (ptr == NULL || ptr1 == NULL)
+        {
+            printf("Error\n");
+            return 0;
+        }
+
+        char input[1000];
+        printf("Enter a question:\n");
+        for (int i = 0; i < 6; i++)
+        {
+            fgets(input, 1000, stdin);
+            fprintf(ptr, "%s", input);
+        }
+        printf("Enter answer key\n");
+        scanf(" %c", &key);
+        fprintf(ptr1, "%c", key);
+
+        fclose(ptr);
+        fclose(ptr1);
+     
 }

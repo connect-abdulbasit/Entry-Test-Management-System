@@ -331,7 +331,7 @@ int military(float *result)
     FILE *military1_file;
     FILE *military1_key;
     military1_file = fopen("military_iq.txt", "r");
-    military1_key = fopen("militarykey1.txt", "r");
+    military1_key = fopen("military_iq_key.txt", "r");
     if (military1_file == NULL)
     {
         printf("Error\n");
@@ -475,7 +475,7 @@ int appendMil()
 {
     char key;
         FILE *ptr = fopen("Military.txt", "a");
-        FILE *ptr1 = fopen("military_key.txt", "a");
+        FILE *ptr1 = fopen("militarykey.txt", "a");
         if (ptr == NULL || ptr1 == NULL)
         {
             printf("Error\n");
@@ -499,7 +499,7 @@ int appendMil()
 int appendiq(){
     char key;
         FILE *ptr = fopen("military_iq.txt", "a");
-        FILE *ptr1 = fopen("military_key1.txt", "a");
+        FILE *ptr1 = fopen("military__iq_key.txt", "a");
         if (ptr == NULL || ptr1 == NULL)
         {
             printf("Error\n");

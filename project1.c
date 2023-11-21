@@ -2,7 +2,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
-#include <conio.h>
+// #include <conio.h>
 
 int count = 0;
 int roll;
@@ -104,6 +104,7 @@ void admin(std *a)
             }
             
         } while (feof(sat)==0);
+        R=0;
         do
         {
             fscanf(ecat, "%d",&R);
@@ -116,7 +117,9 @@ void admin(std *a)
             break;
             }
             
-        } while (feof(ecat)==0);  
+        } while (feof(ecat)==0);
+        R=0;
+
         do
         {
             fscanf(military, "%d",&R);
@@ -129,7 +132,7 @@ void admin(std *a)
             break;
             }
             
-        } while (feof(ecat)==0);       
+        } while (fgetc(military)!=EOF);       
         fclose(sat);
         fclose(military);
         fclose(ecat);

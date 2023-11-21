@@ -90,12 +90,46 @@ void admin(std *a)
            FILE *ecat=fopen("Eresult.txt","r");
            FILE *military=fopen("Mresult.txt","r");
            int R;
+           char record[100];
         do
         {
             fscanf(sat, "%d",&R);
-            printf("%d\n", R);
+            if (R==op)
+            {
+                printf("\tSAT\nRoll No:\tResult\n");
+                printf("%d",R);
+                fscanf(sat,"%[^\n]",record);
+                printf("%s\n",record);
+            break;
+            }
+            
         } while (feof(sat)==0);
-                   
+        do
+        {
+            fscanf(ecat, "%d",&R);
+            if (R==op)
+            {
+                printf("\tECAT\nRoll No:\tResult\n");
+                printf("%d",R);
+                fscanf(ecat,"%[^\n]",record);
+                printf("%s\n",record);
+            break;
+            }
+            
+        } while (feof(ecat)==0);  
+        do
+        {
+            fscanf(military, "%d",&R);
+            if (R==op)
+            {
+                printf("\tMILITARY\nRoll No:\tIQ\tTheory\n");
+                printf("%d",R);
+                fscanf(military,"%[^\n]",record);
+                printf("%s\n",record);
+            break;
+            }
+            
+        } while (feof(ecat)==0);       
         fclose(sat);
         fclose(military);
         fclose(ecat);
@@ -222,7 +256,7 @@ void student(std *a)
                 {
                     sat(&result);
                     FILE *s_res=fopen("Sresult.txt","a");
-                    fprintf(s_res,"%d\t",id);
+                    fprintf(s_res,"%d\t\t",id);
                     fprintf(s_res,"%.2f\n",result);
                     fclose(s_res);
                 }
@@ -240,7 +274,7 @@ void student(std *a)
                 {
                     ecat(&result);
                     FILE *e_res=fopen("Eresult.txt","a");
-                    fprintf(e_res,"%d\t",id);
+                    fprintf(e_res,"%d\t\t",id);
                     fprintf(e_res,"%.2f\n",result);
                     fclose(e_res);
                 }
@@ -258,7 +292,7 @@ void student(std *a)
                    theory=0.0;  
                     military(&result,&theory);
                     FILE *m_res=fopen("Mresult.txt","a");
-                    fprintf(m_res,"%d\t",id);
+                    fprintf(m_res,"%d\t\t",id);
                     fprintf(m_res,"%.2f\t",result);
                     fprintf(m_res,"%.2f\n",theory);
                     fclose(m_res);
@@ -447,7 +481,7 @@ int military(float *iq, float *theo)
             right_answer1++;
         }
         num_of_question1++;
-    } while (num_of_question1 != EOF);
+    } while (fgetc(military1_file) != EOF);
     *iq = right_answer1 * 100.00 / num_of_question1;
     printf("You score %f\n\n", *iq);
     fclose(military1_key);
@@ -483,7 +517,7 @@ int military(float *iq, float *theo)
                 right_answer2++;
             }
             num_of_question2++;
-        } while (num_of_question2 != EOF);
+        } while (fgetc(military_file) != EOF);
         *theo = right_answer2 * 100.00 / num_of_question2;
         printf("You score %f\n\n",*theo );
         fclose(military_file);

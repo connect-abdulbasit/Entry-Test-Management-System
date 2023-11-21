@@ -1,28 +1,24 @@
-1) What is the value of 3x+7=16?
+1)What is the value of 3x+7=16?
 A) x=3
 B) x=5
 C) x=9
 D) x=3.33
-
-2) If 4x+3=11, what is the value of x?
+2)If 4x+3=11, what is the value of x?
 A) x=2
 B) x=3
 C) x=1
 D) x=4
-
-3) Identify the noun in the sentence: "The cat jumped onto the table."
+3)Identify the noun in the sentence: "The cat jumped onto the table."
 A) The
 B) Cat
 C) Jumped
 D) Table
-
-4) Which sentence contains a metaphor?
+4)Which sentence contains a metaphor?
 A) "His words were a soothing balm."
 B) "The sun smiled down on the children."
 C) "The wind sang through the trees."
 D) "Her laughter was music to his ears."
-
-5) Choose the correct form of the verb to complete the sentence: "She ___ to the park every day."
+5)Choose the correct form of the verb to complete the sentence: "She ___ to the park every day."
 A) Go
 B) Goes
 C) Gone

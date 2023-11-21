@@ -49,7 +49,7 @@ int main()
             switch (interface)
             {
             case 1:
-                admin();
+                admin(ptr);
                 break;
             case 2:
                 student(ptr);
@@ -64,15 +64,43 @@ int main()
     free(ptr);
     return 0;
 }
-void admin()
+void admin(std *a)
 {
-    int option, op;
+    int option, op,flag=1;
     printf("1: Student record\n2: Question append\n");
     scanf("%d", &option);
     switch (option)
     {
     case 1:
-
+        printf("Enter roll number:\n");
+        scanf("%d",&op);
+        for (int i = 0; i <=count; i++)
+        {
+            if (a[i].rollno == op){
+                printf("Registration done\n");
+                flag=0;
+                break;
+            }
+        }
+        if (flag==1)
+        {
+            printf("Record not found\n");
+        }else{
+           FILE *sat=fopen("Sresult.txt","r");
+           FILE *ecat=fopen("Eresult.txt","r");
+           FILE *military=fopen("Mresult.txt","r");
+           int R;
+        do
+        {
+            fscanf(sat, "%d",&R);
+            printf("%d\n", R);
+        } while (feof(sat)==0);
+                   
+        fclose(sat);
+        fclose(military);
+        fclose(ecat);
+        }
+        
         break;
     case 2:
         printf("Which portion:\n1:SAT\n2:ECAT\n3:Military\n");
@@ -177,7 +205,7 @@ void student(std *a)
 
             printf("1: SAT\n2: ECAT\n3: Military\n");
             scanf("%d", &choice);
-            float result;
+            float result,theory;
             int id, checker;
             switch (choice)
             {
@@ -193,6 +221,10 @@ void student(std *a)
                 else
                 {
                     sat(&result);
+                    FILE *s_res=fopen("Sresult.txt","a");
+                    fprintf(s_res,"%d\t",id);
+                    fprintf(s_res,"%.2f\n",result);
+                    fclose(s_res);
                 }
 
                 break;
@@ -207,6 +239,10 @@ void student(std *a)
                 else
                 {
                     ecat(&result);
+                    FILE *e_res=fopen("Eresult.txt","a");
+                    fprintf(e_res,"%d\t",id);
+                    fprintf(e_res,"%.2f\n",result);
+                    fclose(e_res);
                 }
                 break;
             case 3:
@@ -219,8 +255,13 @@ void student(std *a)
                 }
                 else
                 {
-
-                    military(&result);
+                   theory=0.0;  
+                    military(&result,&theory);
+                    FILE *m_res=fopen("Mresult.txt","a");
+                    fprintf(m_res,"%d\t",id);
+                    fprintf(m_res,"%.2f\t",result);
+                    fprintf(m_res,"%.2f\n",theory);
+                    fclose(m_res);
                 }
 
                 break;
@@ -371,11 +412,12 @@ int ecat(float *result)
     } while (fgetc(e_qs) != EOF);
     *result = rAns * 100.00 / nQs;
     printf("You score %.2f\n\n", *result);
+
     fclose(e_qs);
     fclose(e_key);
     return 1;
 }
-int military(float *result)
+int military(float *iq, float *theo)
 {
     FILE *military1_file;
     FILE *military1_key;
@@ -405,15 +447,14 @@ int military(float *result)
             right_answer1++;
         }
         num_of_question1++;
-    } while (num_of_question1 != 5);
-    *result = right_answer1 * 100.00 / num_of_question1;
-    printf("You score %f\n\n", *result);
+    } while (num_of_question1 != EOF);
+    *iq = right_answer1 * 100.00 / num_of_question1;
+    printf("You score %f\n\n", *iq);
     fclose(military1_key);
     fclose(military1_file);
-    if (*result >= 50.0)
+    if (*iq >= 50.0)
     {
         printf("Congratulations! You have sucessfully cleared IQ test.\n\n");
-        float result2;
         FILE *military_file;
         FILE *military_key;
         military_file = fopen("Military.txt", "r");
@@ -442,12 +483,12 @@ int military(float *result)
                 right_answer2++;
             }
             num_of_question2++;
-        } while (num_of_question2 != 5);
-        result2 = right_answer2 * 100.00 / num_of_question2;
-        printf("You score %f\n\n", result2);
+        } while (num_of_question2 != EOF);
+        *theo = right_answer2 * 100.00 / num_of_question2;
+        printf("You score %f\n\n",*theo );
         fclose(military_file);
         fclose(military_key);
-        if (result2 >= 50.0)
+        if (*theo >= 50.0)
         {
             printf("Congratulations! You have sucessfully cleared Military test.\n");
         }

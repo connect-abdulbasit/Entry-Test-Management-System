@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/DELL Inspiron PTC/Documents/ASSIGNMENTS (FAST)/PF LAB/semester-project/Semester-Project/Semester-Project",
-      "program": "c:/Users/DELL Inspiron PTC/Documents/ASSIGNMENTS (FAST)/PF LAB/semester-project/Semester-Project/Semester-Project/build/Debug/outDebug",
+      "cwd": "c:/Users/DELL Inspiron PTC/Documents/ASSIGNMENTS (FAST)/PF LAB/Semester-Project",
+      "program": "c:/Users/DELL Inspiron PTC/Documents/ASSIGNMENTS (FAST)/PF LAB/Semester-Project/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

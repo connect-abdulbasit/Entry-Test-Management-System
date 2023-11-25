@@ -2,14 +2,14 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
-// #include <conio.h>
-
+char password[10] = "Fast123";
 int count = 0;
-int roll;
+int adminPass();
 void admin();
 void student();
 int roll_number();
 int sat();
+int testCheckS(int id);
 int ecat();
 int military();
 int registration_checker();
@@ -42,102 +42,141 @@ int main()
         do
         {
 
-            int interface;
-
+            int interface, pass;
             printf("\tWELCOME\n\n1:Administrator Interface\n2:Student Interface\n0:Exit\n");
             scanf("%d", &interface);
             switch (interface)
             {
             case 1:
-                admin(ptr);
-                break;
-            case 2:
-                student(ptr);
-                break;
-            case 0:
-                flag = 1;
-                break;
+
+                pass = adminPass();
+                if (pass == 1)
+                {
+                    printf("Sucessfully login:\n");
+                    admin(ptr);
+                }
+                else
+                {
+                    printf("Maximum attempt reached try ater 30 min\n");
+                    break;
+                case 2:
+                    student(ptr);
+                    break;
+                case 0:
+                    flag = 1;
+                    break;
+                }
             }
         } while (flag == 0);
-    }
 
-    free(ptr);
+        free(ptr);
+        return 0;
+    }
+}
+int adminPass()
+{
+
+    int flag, i = 3;
+    char pass[10];
+
+    do
+    {
+        flag = 1;
+        printf("Enter password:");
+        fgets(pass, 10, stdin);
+        scanf("%s", pass);
+        i--;
+        if (strcmp(pass, password) == 0)
+        {
+
+            return 1;
+        }
+        else
+        {
+            printf("Invalid password\n%d attempt left\n", i);
+            flag = 0;
+        }
+    } while (i != 0);
     return 0;
 }
+
 void admin(std *a)
 {
-    int option, op,flag=1;
+    int option, op, flag = 1;
     printf("1: Student record\n2: Question append\n");
     scanf("%d", &option);
     switch (option)
     {
     case 1:
         printf("Enter roll number:\n");
-        scanf("%d",&op);
-        for (int i = 0; i <=count; i++)
+        scanf("%d", &op);
+        for (int i = 0; i <= count; i++)
         {
-            if (a[i].rollno == op){
+            if (a[i].rollno == op)
+            {
                 printf("Registration done\n");
-                flag=0;
+                flag = 0;
                 break;
             }
         }
-        if (flag==1)
+        if (flag == 1)
         {
             printf("Record not found\n");
-        }else{
-           FILE *sat=fopen("Sresult.txt","r");
-           FILE *ecat=fopen("Eresult.txt","r");
-           FILE *military=fopen("Mresult.txt","r");
-           int R;
-           char record[100];
-        do
-        {
-            fscanf(sat, "%d",&R);
-            if (R==op)
-            {
-                printf("\tSAT\nRoll No:\tResult\n");
-                printf("%d",R);
-                fscanf(sat,"%[^\n]",record);
-                printf("%s\n",record);
-            break;
-            }
-            
-        } while (feof(sat)==0);
-        R=0;
-        do
-        {
-            fscanf(ecat, "%d",&R);
-            if (R==op)
-            {
-                printf("\tECAT\nRoll No:\tResult\n");
-                printf("%d",R);
-                fscanf(ecat,"%[^\n]",record);
-                printf("%s\n",record);
-            break;
-            }
-            
-        } while (feof(ecat)==0);
-        R=0;
-
-        do
-        {
-            fscanf(military, "%d",&R);
-            if (R==op)
-            {
-                printf("\tMILITARY\nRoll No:\tIQ\tTheory\n");
-                printf("%d",R);
-                fscanf(military,"%[^\n]",record);
-                printf("%s\n",record);
-            break;
-            }
-            
-        } while (fgetc(military)!=EOF);       
-        fclose(sat);
-        fclose(military);
-        fclose(ecat);
         }
-        
+        else
+        {
+            FILE *sat = fopen("Sresult.txt", "r");
+            FILE *ecat = fopen("Eresult.txt", "r");
+            FILE *military = fopen("Mresult.txt", "r");
+            int R;
+            char record[100];
+            do
+            {
+                fscanf(sat, "%d", &R);
+                if (R == op)
+                {
+                    printf("\tSAT\nRoll No:\tResult\n");
+                    printf("%d", R);
+                    fscanf(sat, "%[^\n]", record);
+                    printf("%s\n", record);
+                    break;
+                }
+
+            } while (feof(sat) == 0);
+            R = 0;
+            do
+            {
+                fscanf(ecat, "%d", &R);
+                if (R == op)
+                {
+                    printf("\tECAT\nRoll No:\tResult\n");
+                    printf("%d", R);
+                    fscanf(ecat, "%[^\n]", record);
+                    printf("%s\n", record);
+                    break;
+                }
+
+            } while (feof(ecat) == 0);
+            R = 0;
+
+            do
+            {
+                fscanf(military, "%d", &R);
+                if (R == op)
+                {
+                    printf("\tMILITARY\nRoll No:\tIQ\tTheory\n");
+                    printf("%d", R);
+                    fscanf(military, "%[^\n]", record);
+                    printf("%s\n", record);
+                    break;
+                }
+
+            } while (fgetc(military) != EOF);
+            fclose(sat);
+            fclose(military);
+            fclose(ecat);
+        }
+
         break;
     case 2:
         printf("Which portion:\n1:SAT\n2:ECAT\n3:Military\n");
@@ -157,18 +196,21 @@ void admin(std *a)
             switch (option)
             {
             case 1:
-            appendMil();
+                appendMil();
                 break;
             case 2:
-            appendiq();
+                appendiq();
                 break;
 
             default:
+                printf("Invalid Input");
                 break;
             }
 
             break;
         default:
+            printf("Invalid Input");
+
             break;
         }
         break;
@@ -183,7 +225,7 @@ void student(std *a)
     int FLAG = 0, option, error = 0, exit = 3, choice;
     do
     {
-        printf("1:Regisration\n2:Take test\n3:Result\n0: Exit\n");
+        printf("1:Regisration\n2:Take test\n0: Exit\n");
         scanf("%d", &option);
 
         switch (option)
@@ -197,9 +239,9 @@ void student(std *a)
             }
             else
             {
-
+                getchar();
                 printf("Enter your name: \n");
-                scanf("%s", a[count].name);
+                fgets(a[count].name, 100, stdin);
                 do
                 {
                     error = 0;
@@ -234,6 +276,7 @@ void student(std *a)
                 scanf("%d", &a[count].age);
                 printf("Enter your gender: (M,F) \n");
                 scanf(" %c", &a[count].gender);
+                a[count].rollno = 0;
                 roll_number(a, 0);
                 printf("Your roll number is %d\n", a[count].rollno);
             }
@@ -242,7 +285,7 @@ void student(std *a)
 
             printf("1: SAT\n2: ECAT\n3: Military\n");
             scanf("%d", &choice);
-            float result,theory;
+            float result, theory;
             int id, checker;
             switch (choice)
             {
@@ -257,11 +300,18 @@ void student(std *a)
                 }
                 else
                 {
+                    checker=testCheckS(id);
+                    if (checker==0)
+                    {
+                       printf("You already had taken the test:\n");
+                    }else{
+                    
                     sat(&result);
-                    FILE *s_res=fopen("Sresult.txt","a");
-                    fprintf(s_res,"%d\t\t",id);
-                    fprintf(s_res,"%.2f\n",result);
+                    FILE *s_res = fopen("Sresult.txt", "a");
+                    fprintf(s_res, "%d\t\t", id);
+                    fprintf(s_res, "%.2f\n", result);
                     fclose(s_res);
+                }
                 }
 
                 break;
@@ -276,9 +326,9 @@ void student(std *a)
                 else
                 {
                     ecat(&result);
-                    FILE *e_res=fopen("Eresult.txt","a");
-                    fprintf(e_res,"%d\t\t",id);
-                    fprintf(e_res,"%.2f\n",result);
+                    FILE *e_res = fopen("Eresult.txt", "a");
+                    fprintf(e_res, "%d\t\t", id);
+                    fprintf(e_res, "%.2f\n", result);
                     fclose(e_res);
                 }
                 break;
@@ -292,51 +342,18 @@ void student(std *a)
                 }
                 else
                 {
-                   theory=0.0;  
-                    military(&result,&theory);
-                    FILE *m_res=fopen("Mresult.txt","a");
-                    fprintf(m_res,"%d\t\t",id);
-                    fprintf(m_res,"%.2f\t",result);
-                    fprintf(m_res,"%.2f\n",theory);
+                    theory = 0.0;
+                    military(&result, &theory);
+                    FILE *m_res = fopen("Mresult.txt", "a");
+                    fprintf(m_res, "%d\t\t", id);
+                    fprintf(m_res, "%.2f\t", result);
+                    fprintf(m_res, "%.2f\n", theory);
                     fclose(m_res);
                 }
 
                 break;
             default:
                 printf("Invalid Input\n");
-                break;
-            }
-            break;
-            break;
-
-        case 3:
-            printf("Enter your roll no\n");
-            scanf("%d", &roll);
-            for (int i = 0; i < count; i++)
-            {
-                if (a[i].rollno == roll)
-                {
-                    roll = i;
-                    break;
-                }
-            }
-
-            printf("1: SAT\n2: ECAT\n3: Military\n");
-            scanf("%d", &choice);
-            switch (choice)
-            {
-            case 1:
-                // printf("Your score is %f", a[roll].sat);
-                break;
-            case 2:
-                // printf("Your score is %f", a[roll].ecat);
-
-                break;
-            case 3:
-                // printf("Your score is %f", a[roll].military);
-
-                break;
-            default:
                 break;
             }
             break;
@@ -349,38 +366,11 @@ void student(std *a)
         }
     } while (FLAG == 0);
 }
-int roll_number(std *a, int i)
-{
-    int error = 0;
-    if (a[count].cnic[i] == '\0')
-    {
-        roll = 0;
-        return 0;
-    }
-    roll_number(a, i + 1);
-    if (roll < 5)
-    {
-
-        a[count].rollno += ((int)(a[count].cnic[roll] - '0') * pow(10, roll));
-        roll++;
-    }
-    do
-    {
-        for (int i = 0; i < count; i++)
-        {
-            error = 0;
-            if (a[i].rollno == a[count].rollno)
-            {
-                a[count].rollno++;
-                error = 1;
-            }
-        }
-    } while (error == 1);
-}
 int sat(float *result)
 {
     FILE *sat_file;
     FILE *sat_key;
+    int flag = 0;
     sat_file = fopen("SAT.txt", "r");
     sat_key = fopen("sat_key.txt", "r");
     if (sat_file == NULL)
@@ -402,7 +392,17 @@ int sat(float *result)
             printf("%s\n", question);
         }
         fscanf(sat_key, "%c", &correct_answer);
-        scanf(" %c", &user_answer);
+        do
+        {
+            flag = 0;
+            scanf(" %c", &user_answer);
+            if ('A' > user_answer || user_answer > 'D')
+            {
+                printf("Invalid Input\n");
+                flag = 1;
+            }
+        } while (flag == 1);
+
         if (user_answer == correct_answer)
         {
             right_answer++;
@@ -419,6 +419,7 @@ int ecat(float *result)
 {
     FILE *e_qs;
     FILE *e_key;
+    int flag = 0;
     e_qs = fopen("ECAT.txt", "r");
     e_key = fopen("ecat_key.txt", "r");
     if (e_qs == NULL)
@@ -440,7 +441,16 @@ int ecat(float *result)
             printf("%s\n", qs);
         }
         fscanf(e_key, "%c", &cAns);
-        scanf(" %c", &uAns);
+        do
+        {
+            flag = 0;
+            scanf(" %c", &uAns);
+            if ('A' > uAns || uAns > 'D')
+            {
+                printf("Invalid Input\n");
+                flag = 1;
+            }
+        } while (flag == 1);
         if (uAns == cAns)
         {
             rAns++;
@@ -467,8 +477,8 @@ int military(float *iq, float *theo)
     }
     printf("\t\tMILITARY TEST\n");
     char ques1[1000];
-    char user_answer1, correct_answer1;
-    int num_of_question1 = 0;
+    char user_answer, correct_answer;
+    int num_of_question1 = 0, flag = 0;
     int right_answer1 = 0;
     do
     {
@@ -477,9 +487,20 @@ int military(float *iq, float *theo)
             fscanf(military1_file, "%[^\n]\n", ques1);
             printf("%s\n", ques1);
         }
-        fscanf(military1_key, "%c", &correct_answer1);
-        scanf(" %c", &user_answer1);
-        if (user_answer1 == correct_answer1)
+        fscanf(military1_key, "%c", &correct_answer);
+        do
+        {
+            flag = 0;
+            scanf(" %c", &user_answer);
+            if (user_answer > 'D' || user_answer < 'A')
+            {
+                printf("Invalid Input\n");
+                flag = 1;
+            }
+
+        } while (flag == 1);
+
+        if (user_answer == correct_answer)
         {
             right_answer1++;
         }
@@ -503,7 +524,6 @@ int military(float *iq, float *theo)
         }
         printf("\t\tMILITARY TEST (Round #2)\n");
         char ques[1000];
-        char user_answer2, correct_answer2;
         int num_of_question2 = 0;
         int right_answer2 = 0;
         do
@@ -513,16 +533,26 @@ int military(float *iq, float *theo)
                 fscanf(military_file, "%[^\n]\n", ques);
                 printf("%s\n", ques);
             }
-            fscanf(military_key, "%c", &correct_answer2);
-            scanf(" %c", &user_answer2);
-            if (user_answer2 == correct_answer2)
+            fscanf(military_key, "%c", &correct_answer);
+            do
+            {
+                flag = 0;
+                scanf(" %c", &user_answer);
+                if (user_answer > 'D' || user_answer < 'A')
+                {
+                    printf("Invalid Input\n");
+                    flag = 1;
+                }
+
+            } while (flag == 1);
+            if (user_answer == correct_answer)
             {
                 right_answer2++;
             }
             num_of_question2++;
         } while (fgetc(military_file) != EOF);
         *theo = right_answer2 * 100.00 / num_of_question2;
-        printf("You score %f\n\n",*theo );
+        printf("You score %f\n\n", *theo);
         fclose(military_file);
         fclose(military_key);
         if (*theo >= 50.0)
@@ -539,7 +569,54 @@ int military(float *iq, float *theo)
         printf("You have not cleared IQ test. Better luck next time :( \n");
     }
 }
+int testCheckS(int id){
+    FILE *ptr=fopen("Sresult.txt","r");
+    int roll,flag=1;
+do
+{
+    fscanf(ptr,"%d",&roll);
+    if (roll == id)
+    {
+        flag=0;
+    }
+    
+} while (fgetc(ptr)!=EOF);
+fclose(ptr);
+return flag;
+}
+int roll_number(std *a, int i)
+{
+    int error = 0;
+    static int roll;
+    if (a[count].cnic[i] == '\0')
+    {
+        roll = 0;
+        return 0;
+    }
+    roll_number(a, i + 1);
+    if (roll < 5)
+    {
 
+        a[count].rollno += (((int)(a[count].cnic[i] - '0')) * pow(10, roll));
+        printf("%d %c\n",a[count].rollno,a[count].cnic[i]);
+        roll++;
+    }
+    else
+    {
+        do
+        {
+            error = 0;
+            for (int i = 0; i < count; i++)
+            {
+                if (a[i].rollno == a[count].rollno)
+                {
+                    a[count].rollno++;
+                    error = 1;
+                }
+            }
+        } while (error == 1);
+    }
+}
 int registration_checker(int roll_no, std *a)
 {
     for (int i = 0; i < count; i++)
@@ -601,50 +678,50 @@ int appendEcat()
 int appendMil()
 {
     char key;
-        FILE *ptr = fopen("Military.txt", "a");
-        FILE *ptr1 = fopen("militarykey.txt", "a");
-        if (ptr == NULL || ptr1 == NULL)
-        {
-            printf("Error\n");
-            return 0;
-        }
+    FILE *ptr = fopen("Military.txt", "a");
+    FILE *ptr1 = fopen("militarykey.txt", "a");
+    if (ptr == NULL || ptr1 == NULL)
+    {
+        printf("Error\n");
+        return 0;
+    }
 
-        char input[1000];
-        printf("Enter a question:\n");
-        for (int i = 0; i < 6; i++)
-        {
-            fgets(input, 1000, stdin);
-            fprintf(ptr, "%s", input);
-        }
-        printf("Enter answer key\n");
-        scanf(" %c", &key);
-        fprintf(ptr1, "%c", key);
+    char input[1000];
+    printf("Enter a question:\n");
+    for (int i = 0; i < 6; i++)
+    {
+        fgets(input, 1000, stdin);
+        fprintf(ptr, "%s", input);
+    }
+    printf("Enter answer key\n");
+    scanf(" %c", &key);
+    fprintf(ptr1, "%c", key);
 
-        fclose(ptr);
-        fclose(ptr1);
+    fclose(ptr);
+    fclose(ptr1);
 }
-int appendiq(){
+int appendiq()
+{
     char key;
-        FILE *ptr = fopen("military_iq.txt", "a");
-        FILE *ptr1 = fopen("military__iq_key.txt", "a");
-        if (ptr == NULL || ptr1 == NULL)
-        {
-            printf("Error\n");
-            return 0;
-        }
+    FILE *ptr = fopen("military_iq.txt", "a");
+    FILE *ptr1 = fopen("military__iq_key.txt", "a");
+    if (ptr == NULL || ptr1 == NULL)
+    {
+        printf("Error\n");
+        return 0;
+    }
 
-        char input[1000];
-        printf("Enter a question:\n");
-        for (int i = 0; i < 6; i++)
-        {
-            fgets(input, 1000, stdin);
-            fprintf(ptr, "%s", input);
-        }
-        printf("Enter answer key\n");
-        scanf(" %c", &key);
-        fprintf(ptr1, "%c", key);
+    char input[1000];
+    printf("Enter a question:\n");
+    for (int i = 0; i < 6; i++)
+    {
+        fgets(input, 1000, stdin);
+        fprintf(ptr, "%s", input);
+    }
+    printf("Enter answer key\n");
+    scanf(" %c", &key);
+    fprintf(ptr1, "%c", key);
 
-        fclose(ptr);
-        fclose(ptr1);
-     
+    fclose(ptr);
+    fclose(ptr1);
 }

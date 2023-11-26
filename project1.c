@@ -241,16 +241,16 @@ void student(std *a)
             {
                 getchar();
                 printf("Enter your name: \n");
-                fgets(a[count].name, 100, stdin);
+                fgets(a[count-1].name, 100, stdin);
                 do
                 {
                     error = 0;
                     printf("Enter your cnic: \n");
-                    scanf("%s", &a[count].cnic);
+                    scanf("%s", &a[count-1].cnic);
 
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < (count-1); i++)
                     {
-                        if (strcmp(a[i].cnic, a[count].cnic) == 0)
+                        if (strcmp(a[i].cnic, a[count-1].cnic) == 0)
                         {
                             if (exit > 0)
                             {
@@ -273,12 +273,12 @@ void student(std *a)
                 }
 
                 printf("Enter your age: \n");
-                scanf("%d", &a[count].age);
+                scanf("%d", &a[count-1].age);
                 printf("Enter your gender: (M,F) \n");
-                scanf(" %c", &a[count].gender);
+                scanf(" %c", &a[count-1].gender);
                 a[count].rollno = 0;
                 roll_number(a, 0);
-                printf("Your roll number is %d\n", a[count].rollno);
+                printf("Your roll number is %d\n", a[count-1].rollno);
             }
             break;
         case 2:
@@ -588,7 +588,7 @@ int roll_number(std *a, int i)
 {
     int error = 0;
     static int roll;
-    if (a[count].cnic[i] == '\0')
+    if (a[count-1].cnic[i] == '\0')
     {
         roll = 0;
         return 0;
@@ -597,8 +597,8 @@ int roll_number(std *a, int i)
     if (roll < 5)
     {
 
-        a[count].rollno += (((int)(a[count].cnic[i] - '0')) * pow(10, roll));
-        printf("%d %c\n",a[count].rollno,a[count].cnic[i]);
+        a[count-1].rollno += (((int)(a[count-1].cnic[i] - '0')) * pow(10, roll));
+        // printf("%d %c\n",a[count].rollno,a[count].cnic[i]);
         roll++;
     }
     else
@@ -606,11 +606,11 @@ int roll_number(std *a, int i)
         do
         {
             error = 0;
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < (count-1); i++)
             {
-                if (a[i].rollno == a[count].rollno)
+                if (a[i].rollno == a[count-1].rollno)
                 {
-                    a[count].rollno++;
+                    a[count-1].rollno++;
                     error = 1;
                 }
             }

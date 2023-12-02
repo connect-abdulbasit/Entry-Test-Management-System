@@ -4,19 +4,21 @@
 #include <stdlib.h>
 char password[10] = "Fast123";
 int count = 0;
+
 int adminPass();
-void admin();
-void student();
-int roll_number();
-int sat();
+void admin(std *a);
+void student(std *a);
+int roll_number(std *a, int i);
+int sat(float *result);
 int testCheckS(int id);
-int ecat();
-int military();
-int registration_checker();
+int ecat(float *result);
+int military(float *iq, float *theo);
+int registration_checker(int roll_no, std *a);
 int appendSat();
 int appendEcat();
 int appendMil();
 int appendiq();
+
 typedef struct student
 {
     char cnic[15];

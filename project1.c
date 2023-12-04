@@ -4,21 +4,6 @@
 #include <stdlib.h>
 char password[10] = "Fast123";
 int count = 0;
-
-int adminPass();
-void admin(std *a);
-void student(std *a);
-int roll_number(std *a, int i);
-int sat(float *result);
-int testCheckS(int id);
-int ecat(float *result);
-int military(float *iq, float *theo);
-int registration_checker(int roll_no, std *a);
-int appendSat();
-int appendEcat();
-int appendMil();
-int appendiq();
-
 typedef struct student
 {
     char cnic[15];
@@ -28,6 +13,22 @@ typedef struct student
     int rollno;
 
 } std;
+
+int adminPass();
+void admin(std *a);
+void student(std *a);
+int roll_number(std *a, int i);
+int sat(float *result);
+int testCheckS(int id);
+int testCheckE(int id);
+int testCheckM(int id);
+int ecat(float *result);
+int military(float *iq, float *theo);
+int registration_checker(int roll_no, std *a);
+int appendSat();
+int appendEcat();
+int appendMil();
+int appendiq();
 
 int main()
 {
@@ -243,16 +244,16 @@ void student(std *a)
             {
                 getchar();
                 printf("Enter your name: \n");
-                fgets(a[count-1].name, 100, stdin);
+                fgets(a[count - 1].name, 100, stdin);
                 do
                 {
                     error = 0;
                     printf("Enter your cnic: \n");
-                    scanf("%s", &a[count-1].cnic);
+                    scanf("%s", &a[count - 1].cnic);
 
-                    for (int i = 0; i < (count-1); i++)
+                    for (int i = 0; i < (count - 1); i++)
                     {
-                        if (strcmp(a[i].cnic, a[count-1].cnic) == 0)
+                        if (strcmp(a[i].cnic, a[count - 1].cnic) == 0)
                         {
                             if (exit > 0)
                             {
@@ -275,12 +276,12 @@ void student(std *a)
                 }
 
                 printf("Enter your age: \n");
-                scanf("%d", &a[count-1].age);
+                scanf("%d", &a[count - 1].age);
                 printf("Enter your gender: (M,F) \n");
-                scanf(" %c", &a[count-1].gender);
+                scanf(" %c", &a[count - 1].gender);
                 a[count].rollno = 0;
                 roll_number(a, 0);
-                printf("Your roll number is %d\n", a[count-1].rollno);
+                printf("Your roll number is %d\n", a[count - 1].rollno);
             }
             break;
         case 2:
@@ -288,7 +289,7 @@ void student(std *a)
             printf("1: SAT\n2: ECAT\n3: Military\n");
             scanf("%d", &choice);
             float result, theory;
-            int id, checker;
+            int id, checker, check;
             switch (choice)
             {
             case 1:
@@ -302,18 +303,20 @@ void student(std *a)
                 }
                 else
                 {
-                    checker=testCheckS(id);
-                    if (checker==0)
+                    check = testCheckS(id);
+                    if (check != 1)
                     {
-                       printf("You already had taken the test:\n");
-                    }else{
-                    
-                    sat(&result);
-                    FILE *s_res = fopen("Sresult.txt", "a");
-                    fprintf(s_res, "%d\t\t", id);
-                    fprintf(s_res, "%.2f\n", result);
-                    fclose(s_res);
-                }
+                        printf("You already had taken the test:\n");
+                    }
+                    else
+                    {
+
+                        sat(&result);
+                        FILE *s_res = fopen("Sresult.txt", "a");
+                        fprintf(s_res, "%d\t\t", id);
+                        fprintf(s_res, "%.2f\n", result);
+                        fclose(s_res);
+                    }
                 }
 
                 break;
@@ -327,11 +330,20 @@ void student(std *a)
                 }
                 else
                 {
-                    ecat(&result);
-                    FILE *e_res = fopen("Eresult.txt", "a");
-                    fprintf(e_res, "%d\t\t", id);
-                    fprintf(e_res, "%.2f\n", result);
-                    fclose(e_res);
+                    check = testCheckE(id);
+                    if (check != 1)
+                    {
+                        printf("You already had taken the test:\n");
+                    }
+                    else
+                    {
+
+                        ecat(&result);
+                        FILE *e_res = fopen("Eresult.txt", "a");
+                        fprintf(e_res, "%d\t\t", id);
+                        fprintf(e_res, "%.2f\n", result);
+                        fclose(e_res);
+                    }
                 }
                 break;
             case 3:
@@ -571,26 +583,45 @@ int military(float *iq, float *theo)
         printf("You have not cleared IQ test. Better luck next time :( \n");
     }
 }
-int testCheckS(int id){
-    FILE *ptr=fopen("Sresult.txt","r");
-    int roll,flag=1;
-do
+int testCheckS(int id)
 {
-    fscanf(ptr,"%d",&roll);
-    if (roll == id)
+    FILE *ptr = fopen("Sresult.txt", "r");
+    int roll, flag = 1;
+    do
     {
-        flag=0;
-    }
-    
-} while (fgetc(ptr)!=EOF);
-fclose(ptr);
-return flag;
+        fscanf(ptr, "%d", &roll);
+        if (roll == id)
+        {
+            flag = 0;
+        }
+
+    } while (fgetc(ptr) != EOF);
+
+    fclose(ptr);
+    return flag;
+}
+int testCheckE(int id)
+{
+    FILE *ptr = fopen("Eresult.txt", "r");
+    int roll, flag = 1;
+    do
+    {
+        fscanf(ptr, "%d", &roll);
+        if (roll == id)
+        {
+            flag = 0;
+        }
+
+    } while (fgetc(ptr) != EOF);
+
+    fclose(ptr);
+    return flag;
 }
 int roll_number(std *a, int i)
 {
     int error = 0;
     static int roll;
-    if (a[count-1].cnic[i] == '\0')
+    if (a[count - 1].cnic[i] == '\0')
     {
         roll = 0;
         return 0;
@@ -599,8 +630,7 @@ int roll_number(std *a, int i)
     if (roll < 5)
     {
 
-        a[count-1].rollno += (((int)(a[count-1].cnic[i] - '0')) * pow(10, roll));
-        // printf("%d %c\n",a[count].rollno,a[count].cnic[i]);
+        a[count - 1].rollno += (((int)(a[count - 1].cnic[i] - '0')) * pow(10, roll));
         roll++;
     }
     else
@@ -608,11 +638,11 @@ int roll_number(std *a, int i)
         do
         {
             error = 0;
-            for (int i = 0; i < (count-1); i++)
+            for (int i = 0; i < (count - 1); i++)
             {
-                if (a[i].rollno == a[count-1].rollno)
+                if (a[i].rollno == a[count - 1].rollno)
                 {
-                    a[count-1].rollno++;
+                    a[count - 1].rollno++;
                     error = 1;
                 }
             }

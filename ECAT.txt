@@ -27,3 +27,9 @@ A) Ocean
 B) Country
 C) Animal
 D) Occupation
+
+GGG
+A 
+B 
+C
+D

@@ -37,8 +37,7 @@ int main()
         scanf("%d", &interface);
         switch (interface)
         {
-        case 1:
-
+            case 1:
             pass = adminPass();
             if (pass == 1)
             {
@@ -55,6 +54,8 @@ int main()
             case 0:
                 flag = 1;
                 break;
+            default:
+            	printf("Invalid Input\n");
             }
         }
     } while (flag == 0);
@@ -123,7 +124,7 @@ void admin(std *a)
                     {
                         printf("\tSAT\nRoll No:\tScore\n");
 
-                        printf("%d\t%.2f", flag, marks1);
+                        printf("%d\t\t%.2f\n\n", flag, marks1);
                         break;
                     }
                 }
@@ -140,7 +141,7 @@ void admin(std *a)
                     {
                         printf("\tECAT\nRoll No:\tScore\n");
 
-                        printf("%d %f", flag, marks1);
+                        printf("%d\t\t%f\n\n", flag, marks1);
                         break;
                     }
                 }
@@ -151,13 +152,13 @@ void admin(std *a)
                 {
                     printf("Error in military file opening:");
                 }
-                while (fscanf(ptr, "%d %f %f", &flag, &marks1, &marks2) != EOF)
+                while (fscanf(ptr, "%d%f%f\n\n", &flag, &marks1, &marks2) != EOF)
                 {
                     if (roll == flag)
                     {
                         printf("\tMilitary\nRoll No:\tIQ\tTheory\n");
 
-                        printf("%d\t%.2f\t%.2f", flag, marks1, marks2);
+                        printf("%d\t\t%.2f\t%.2f\n\n", flag, marks1, marks2);
                         break;
                     }
                 }

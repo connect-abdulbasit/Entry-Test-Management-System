@@ -1,3 +1,7 @@
+/*23K-0526
+ 23K-0621
+ 23K-0007
+*/
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -37,7 +41,7 @@ int main()
         scanf("%d", &interface);
         switch (interface)
         {
-            case 1:
+        case 1:
             pass = adminPass();
             if (pass == 1)
             {
@@ -55,11 +59,10 @@ int main()
                 flag = 1;
                 break;
             default:
-            	printf("Invalid Input\n");
+                printf("Invalid Input\n");
             }
         }
     } while (flag == 0);
-    free(ptr);
     return 0;
 }
 int adminPass()
@@ -88,6 +91,8 @@ int adminPass()
 void admin(std *a)
 {
     int option, flag, op, flag1, roll;
+    float marks1, marks2;
+    FILE *ptr;
     flag1 = 1;
     flag = 0;
     do
@@ -97,78 +102,136 @@ void admin(std *a)
         switch (option)
         {
         case 1:
-            printf("Enter roll number:\n");
-            scanf("%d", &roll);
-            for (int i = 0; i < count; i++)
+            printf("1:Complete result of ECAT\n2:Complete result of SAT\n3:Complete result of Military Exam\n4:Record of specific student\n0:Exit\n");
+            scanf("%d", &op);
+            switch (op)
             {
-                if (a[i].rollno == roll)
-                {
-                    flag = 1;
-                }
-            }
-            if (flag == 1)
-            {
-                printf("REGISTERATION DONE\n");
-
-                char R[50];
-                float marks1, marks2;
-                FILE *ptr;
-                ptr = fopen("Sresult.txt", "r");
-                if (ptr == NULL)
-                {
-                    printf("Error in sat file opening:");
-                }
-                while (fscanf(ptr, "%d %f", &flag, &marks1) != EOF)
-                {
-                    if (roll == flag)
-                    {
-                        printf("\tSAT\nRoll No:\tScore\n");
-
-                        printf("%d\t\t%.2f\n\n", flag, marks1);
-                        break;
-                    }
-                }
-                fclose(ptr);
-                printf("\n");
+            case 1:
                 ptr = fopen("Eresult.txt", "r");
                 if (ptr == NULL)
                 {
-                    printf("Error in ecat file opening:");
+                    printf("Error in file opening\n");
                 }
-                while (fscanf(ptr, "%d %f", &flag, &marks1) != EOF)
+                else
                 {
-                    if (roll == flag)
+                    printf("Roll No:\tScore\n");
+                    while (fscanf(ptr, "%d %f", &flag, &marks1) != EOF)
                     {
-                        printf("\tECAT\nRoll No:\tScore\n");
-
-                        printf("%d\t\t%f\n\n", flag, marks1);
-                        break;
+                        printf("%d\t\t%.2f\n", flag, marks1);
                     }
+                    printf("\n\n");
+                    fclose(ptr);
                 }
-                fclose(ptr);
-                printf("\n");
+                break;
+            case 2:
+                ptr = fopen("Sresult.txt", "r");
+                if (ptr == NULL)
+                {
+                    printf("Error in file opening\n");
+                }
+                else
+                {
+                    printf("Roll No:\tScore\n");
+                    while (fscanf(ptr, "%d %f", &flag, &marks1) != EOF)
+                    {
+                        printf("%d\t\t%.2f\n", flag, marks1);
+                    }
+                    printf("\n\n");
+                    fclose(ptr);
+                }
+                break;
+            case 3:
                 ptr = fopen("Mresult.txt", "r");
                 if (ptr == NULL)
                 {
-                    printf("Error in military file opening:");
+                    printf("Error in file opening\n");
                 }
-                while (fscanf(ptr, "%d%f%f\n\n", &flag, &marks1, &marks2) != EOF)
+                else
                 {
-                    if (roll == flag)
+                    printf("Roll No:\tIQ\tTheory\n");
+                    while (fscanf(ptr, "%d %f %f", &flag, &marks1, &marks2) != EOF)
                     {
-                        printf("\tMilitary\nRoll No:\tIQ\tTheory\n");
-
-                        printf("%d\t\t%.2f\t%.2f\n\n", flag, marks1, marks2);
-                        break;
+                        printf("%d\t\t%.2f\t%.2f\n", flag, marks1, marks2);
+                    }
+                    printf("\n\n");
+                    fclose(ptr);
+                }
+                break;
+            case 4:
+                printf("Enter roll number:\n");
+                scanf("%d", &roll);
+                for (int i = 0; i < count; i++)
+                {
+                    if (a[i].rollno == roll)
+                    {
+                        flag = 1;
                     }
                 }
-                fclose(ptr);
+                if (flag == 1)
+                {
+                    printf("REGISTERATION DONE\n");
+
+                    ptr = fopen("Sresult.txt", "r");
+                    if (ptr == NULL)
+                    {
+                        printf("Error in sat file opening:");
+                    }
+                    while (fscanf(ptr, "%d %f", &flag, &marks1) != EOF)
+                    {
+                        if (roll == flag)
+                        {
+                            printf("\tSAT\nRoll No:\tScore\n");
+
+                            printf("%d\t\t%.2f\n\n", flag, marks1);
+                            break;
+                        }
+                    }
+                    fclose(ptr);
+                    printf("\n");
+                    ptr = fopen("Eresult.txt", "r");
+                    if (ptr == NULL)
+                    {
+                        printf("Error in ecat file opening:");
+                    }
+                    while (fscanf(ptr, "%d %f", &flag, &marks1) != EOF)
+                    {
+                        if (roll == flag)
+                        {
+                            printf("\tECAT\nRoll No:\tScore\n");
+
+                            printf("%d\t\t%f\n\n", flag, marks1);
+                            break;
+                        }
+                    }
+                    fclose(ptr);
+                    printf("\n");
+                    ptr = fopen("Mresult.txt", "r");
+                    if (ptr == NULL)
+                    {
+                        printf("Error in military file opening:");
+                    }
+                    while (fscanf(ptr, "%d%f%f\n\n", &flag, &marks1, &marks2) != EOF)
+                    {
+                        if (roll == flag)
+                        {
+                            printf("\tMilitary\nRoll No:\tIQ\tTheory\n");
+
+                            printf("%d\t\t%.2f\t%.2f\n\n", flag, marks1, marks2);
+                            break;
+                        }
+                    }
+                    fclose(ptr);
+                }
+                else
+                {
+                    printf("No Record Found:\n");
+                }
+                printf("\n");
+                break;
+            default:
+                printf("Invalid Input\n");
+                break;
             }
-            else
-            {
-                printf("No Record Found:\n");
-            }
-            printf("\n");
             break;
         case 2:
             printf("Which portion:\n1:SAT\n2:ECAT\n3:Military\n");
@@ -423,6 +486,7 @@ void student(std *a)
                         fclose(ptr);
                         if (check == 0)
                         {
+                            theory = 0;
                             military(&result, &theory);
                             FILE *m_res = fopen("Mresult.txt", "a");
                             fprintf(m_res, "%d\t\t", id);

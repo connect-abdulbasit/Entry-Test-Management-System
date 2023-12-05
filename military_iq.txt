@@ -27,8 +27,3 @@ A: Building
 B: Grass
 C: Garden
 D: Tree
-ASWED
-S
-D
-E
-F
